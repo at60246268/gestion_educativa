@@ -1,0 +1,7 @@
+// Estilos heredados del .page-container y .form-grid globales
+mat-card-header mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+}

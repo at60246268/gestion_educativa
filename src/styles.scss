@@ -1,0 +1,70 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background: #f5f7fa;
+}
+
+/* ── Utilidades globales ── */
+.full-width { width: 100%; }
+
+/* ── Layout de páginas con contenido ── */
+.page-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    padding: 60px;
+  }
+}
+
+/* ── Formularios en grid ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  .span-2 { grid-column: span 2; }
+  .toggle-field { display: flex; align-items: center; }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    .span-2 { grid-column: span 1; }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+/* ── Chips de roles ── */
+.chip-admin     { background: #e3f2fd !important; color: #1565c0 !important; }
+.chip-profesor  { background: #e8f5e9 !important; color: #2e7d32 !important; }
+.chip-estudiante { background: #fff8e1 !important; color: #f57f17 !important; }

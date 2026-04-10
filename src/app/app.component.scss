@@ -1,0 +1,4 @@
+main.with-nav {
+  margin-top: 64px; // altura del mat-toolbar fijo
+  min-height: calc(100vh - 64px);
+}

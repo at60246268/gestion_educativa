@@ -1,0 +1,81 @@
+.dashboard-container {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 36px;
+
+    h1 {
+      font-size: 2rem;
+      color: #1565c0;
+      margin: 0 0 4px;
+    }
+    p {
+      color: #666;
+      margin: 0;
+      text-transform: capitalize;
+    }
+
+    .role-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+
+      &.role-admin    { background: #e3f2fd; color: #1565c0; }
+      &.role-profesor { background: #e8f5e9; color: #2e7d32; }
+      &.role-estudiante { background: #fff8e1; color: #f57f17; }
+    }
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+
+    .menu-card {
+      cursor: pointer;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      mat-card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 28px 16px;
+        text-align: center;
+
+        .card-icon {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 16px;
+
+          mat-icon {
+            font-size: 2rem;
+            height: 2rem;
+            width: 2rem;
+          }
+        }
+
+        h3 { margin: 0 0 6px; color: #333; }
+        p  { margin: 0; font-size: 0.82rem; color: #888; }
+      }
+    }
+  }
+}

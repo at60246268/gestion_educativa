@@ -1,0 +1,86 @@
+<div class="page-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>{{ isEditing ? 'edit' : 'add_circle' }}</mat-icon>
+        {{ isEditing ? 'Editar Curso' : 'Nuevo Curso' }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+
+          <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Nombre del curso</mat-label>
+            <input matInput formControlName="nombre" placeholder="Ej: Desarrollo Web con Angular">
+            @if (form.get('nombre')?.touched && form.get('nombre')?.hasError('required')) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="descripcion" rows="3"
+              placeholder="Describe los objetivos del curso..."></textarea>
+            @if (form.get('descripcion')?.touched && form.get('descripcion')?.hasError('required')) {
+              <mat-error>La descripción es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Categoría</mat-label>
+            <input matInput formControlName="categoria" placeholder="Ej: Tecnología">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado">
+              <mat-option value="activo">Activo</mat-option>
+              <mat-option value="inactivo">Inactivo</mat-option>
+              <mat-option value="pendiente">Pendiente</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Campo dinámico: aparece solo cuando estado = 'inactivo' -->
+          @if (mostrarMotivo) {
+            <mat-form-field appearance="outline" class="span-2 campo-dinamico">
+              <mat-label>Motivo de inactivación</mat-label>
+              <textarea matInput formControlName="motivo" rows="2"
+                placeholder="Explica por qué el curso está inactivo..."></textarea>
+              <mat-icon matSuffix>info</mat-icon>
+              @if (form.get('motivo')?.touched && form.get('motivo')?.hasError('required')) {
+                <mat-error>El motivo es requerido cuando el curso está inactivo</mat-error>
+              }
+            </mat-form-field>
+          }
+
+          <mat-form-field appearance="outline">
+            <mat-label>Duración (horas)</mat-label>
+            <input matInput type="number" formControlName="duracion" min="1">
+            <mat-icon matSuffix>schedule</mat-icon>
+            @if (form.get('duracion')?.touched && form.get('duracion')?.hasError('min')) {
+              <mat-error>Mínimo 1 hora</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>ID del Profesor</mat-label>
+            <input matInput type="number" formControlName="profesorId">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancelar()">
+            <mat-icon>arrow_back</mat-icon> Cancelar
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">
+            <mat-icon>save</mat-icon>
+            {{ isEditing ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

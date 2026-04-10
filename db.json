@@ -1,0 +1,14 @@
+{
+  "users": [
+    { "id": 1, "nombre": "Administrador", "email": "admin@edu.com", "password": "admin123", "rol": "admin", "activo": true },
+    { "id": 2, "nombre": "Juan Pérez", "email": "profesor@edu.com", "password": "prof123", "rol": "profesor", "activo": true },
+    { "id": 3, "nombre": "María García", "email": "estudiante@edu.com", "password": "est123", "rol": "estudiante", "activo": true },
+    { "id": 4, "nombre": "Carlos López", "email": "carlos@edu.com", "password": "carl123", "rol": "profesor", "activo": true }
+  ],
+  "cursos": [
+    { "id": 1, "nombre": "Desarrollo Web con Angular", "descripcion": "Aprende a crear SPAs modernas con Angular 17", "categoria": "Tecnología", "estado": "activo", "duracion": 40, "profesorId": 2, "createdAt": "2024-01-15" },
+    { "id": 2, "nombre": "Bases de Datos Relacionales", "descripcion": "MySQL, PostgreSQL y diseño de esquemas", "categoria": "Tecnología", "estado": "activo", "duracion": 30, "profesorId": 2, "createdAt": "2024-01-20" },
+    { "id": 3, "nombre": "Matemáticas Discretas", "descripcion": "Fundamentos matemáticos para la informática", "categoria": "Ciencias", "estado": "pendiente", "duracion": 25, "profesorId": 4, "createdAt": "2024-02-01" },
+    { "id": 4, "nombre": "Inteligencia Artificial", "descripcion": "Introducción a ML y redes neuronales", "categoria": "Tecnología", "estado": "inactivo", "duracion": 50, "profesorId": 4, "createdAt": "2024-02-10" }
+  ]
+}

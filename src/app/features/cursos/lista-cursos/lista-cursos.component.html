@@ -1,0 +1,66 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2><mat-icon>menu_book</mat-icon> Cursos</h2>
+    @if (isAdminOrProfesor) {
+      <button mat-raised-button color="primary" (click)="nuevo()">
+        <mat-icon>add</mat-icon> Nuevo Curso
+      </button>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <mat-card>
+      <table mat-table [dataSource]="cursos" class="full-width">
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let c" [appHighlight]="'#e8f5e9'">{{ c.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef>Categoría</th>
+          <td mat-cell *matCellDef="let c">{{ c.categoria }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let c">{{ c.estado | estadoCurso }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="duracion">
+          <th mat-header-cell *matHeaderCellDef>Duración</th>
+          <td mat-cell *matCellDef="let c">{{ c.duracion }}h</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let c">
+            @if (isAdminOrProfesor) {
+              <button mat-icon-button color="primary" (click)="editar(c.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            }
+            @if (isAdmin) {
+              <button mat-icon-button color="warn" (click)="eliminar(c.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5" style="text-align:center; padding: 24px;">
+            No hay cursos registrados.
+          </td>
+        </tr>
+      </table>
+    </mat-card>
+  }
+</div>
