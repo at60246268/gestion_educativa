@@ -1,12 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { LoginRequest, LoginResponse, User } from '../models/user.model';
+import { LoginRequest, LoginResponse, RegisterRequest, User } from '../models/user.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  private readonly API = 'http://localhost:3000';
+  private readonly API = environment.apiUrl;
   private readonly TOKEN_KEY = 'edu_token';
   private readonly USER_KEY = 'edu_user';
 
@@ -17,6 +18,10 @@ export class AuthService {
         localStorage.setItem(this.USER_KEY, JSON.stringify(response.user));
       })
     );
+  }
+
+  register(data: RegisterRequest): Observable<User> {
+    return this.http.post<User>(`${this.API}/auth/register`, data);
   }
 
   logout(): void {

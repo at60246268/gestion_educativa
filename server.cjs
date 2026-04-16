@@ -29,6 +29,29 @@ server.post('/auth/login', (req, res) => {
   res.json({ token, user: userWithoutPass });
 });
 
+// Endpoint de registro: crea un nuevo usuario
+server.post('/auth/register', (req, res) => {
+  const { nombre, email, password, rol } = req.body;
+  const db = router.db;
+
+  if (!nombre || !email || !password || !rol) {
+    return res.status(400).json({ message: 'Todos los campos son requeridos' });
+  }
+
+  const existe = db.get('users').find({ email }).value();
+  if (existe) {
+    return res.status(409).json({ message: 'El correo ya está registrado' });
+  }
+
+  const users = db.get('users').value();
+  const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+  const newUser = { id: newId, nombre, email, password, rol, activo: true };
+
+  db.get('users').push(newUser).write();
+  const { password: _pass, ...userWithoutPass } = newUser;
+  res.status(201).json(userWithoutPass);
+});
+
 // Middleware de protección para rutas de escritura
 server.use((req, res, next) => {
   if (req.method === 'GET' || req.path === '/auth/login') {
