@@ -40,14 +40,25 @@
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
           <td mat-cell *matCellDef="let c">
             @if (isAdminOrProfesor) {
-              <button mat-icon-button color="primary" (click)="editar(c.id)">
+              <button mat-icon-button color="primary" (click)="editar(c.id)" matTooltip="Editar">
                 <mat-icon>edit</mat-icon>
               </button>
             }
             @if (isAdmin) {
-              <button mat-icon-button color="warn" (click)="eliminar(c.id)">
+              <button mat-icon-button color="warn" (click)="eliminar(c.id)" matTooltip="Eliminar">
                 <mat-icon>delete</mat-icon>
               </button>
+            }
+            @if (isEstudiante && c.estado === 'activo') {
+              @if (estaInscrito(c.id)) {
+                <button mat-stroked-button color="warn" (click)="cancelarInscripcion(c.id)" matTooltip="Cancelar inscripción">
+                  <mat-icon>remove_circle</mat-icon> Inscrito
+                </button>
+              } @else {
+                <button mat-raised-button color="accent" (click)="inscribirse(c.id)" matTooltip="Inscribirse al curso">
+                  <mat-icon>school</mat-icon> Inscribirse
+                </button>
+              }
             }
           </td>
         </ng-container>

@@ -23,4 +23,33 @@
       </mat-card>
     }
   </div>
+
+  @if (isEstudiante) {
+    <div class="inscripciones-section">
+      <h2><mat-icon>school</mat-icon> Mis Cursos Inscritos</h2>
+
+      @if (cursosInscritos.length === 0) {
+        <p class="sin-cursos">Aún no estás inscrito en ningún curso. <a (click)="router.navigate(['/cursos'])">Ver cursos disponibles</a></p>
+      } @else {
+        <div class="cursos-grid">
+          @for (curso of cursosInscritos; track curso.id) {
+            <mat-card class="curso-card">
+              <mat-card-content>
+                <div class="curso-header">
+                  <mat-icon class="curso-icon">menu_book</mat-icon>
+                  <span class="curso-estado">{{ curso.estado | estadoCurso }}</span>
+                </div>
+                <h3>{{ curso.nombre }}</h3>
+                <p class="categoria">{{ curso.categoria }}</p>
+                <p class="descripcion">{{ curso.descripcion }}</p>
+                <div class="curso-footer">
+                  <mat-icon>schedule</mat-icon> {{ curso.duracion }}h
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      }
+    </div>
+  }
 </div>

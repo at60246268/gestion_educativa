@@ -78,4 +78,93 @@
       }
     }
   }
+
+  .inscripciones-section {
+    margin-top: 48px;
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.4rem;
+      color: #f57f17;
+      margin-bottom: 20px;
+
+      mat-icon { color: #f57f17; }
+    }
+
+    .sin-cursos {
+      color: #888;
+      font-size: 0.95rem;
+
+      a {
+        color: #1565c0;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    .cursos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+
+      .curso-card {
+        border-radius: 12px;
+        border-left: 4px solid #f57f17;
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        mat-card-content {
+          padding: 20px;
+
+          .curso-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+
+            .curso-icon { color: #f57f17; }
+            .curso-estado { font-size: 0.85rem; }
+          }
+
+          h3 {
+            margin: 0 0 4px;
+            color: #333;
+            font-size: 1rem;
+          }
+
+          .categoria {
+            font-size: 0.78rem;
+            color: #1565c0;
+            font-weight: 500;
+            margin: 0 0 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+
+          .descripcion {
+            font-size: 0.83rem;
+            color: #666;
+            margin: 0 0 12px;
+            line-height: 1.4;
+          }
+
+          .curso-footer {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.82rem;
+            color: #888;
+
+            mat-icon { font-size: 1rem; height: 1rem; width: 1rem; }
+          }
+        }
+      }
+    }
+  }
 }

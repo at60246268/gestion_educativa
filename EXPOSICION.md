@@ -2,48 +2,6 @@
 
 ---
 
-## 🏗️ ¿DE QUÉ TRATA EL PROYECTO?
-
-Sistema web fullstack de gestión educativa que permite administrar **usuarios** (admin, profesor, estudiante) y **cursos** con control de acceso basado en roles.
-
-### Stack tecnológico
-
-| Capa | Tecnología | Versión | Para qué sirve |
-|------|-----------|---------|----------------|
-| **Frontend** | Angular | 17 | Framework SPA — componentes, rutas, formularios |
-| **Lenguaje** | TypeScript | ~5.2 | Tipado estático sobre JavaScript |
-| **UI** | Angular Material | 17 | Componentes visuales (tablas, forms, botones) |
-| **Estilos** | SCSS | — | CSS con variables y anidamiento |
-| **HTTP Mock** | JSON Server + Node.js | — | Simula una API REST con autenticación JWT |
-| **Seguridad** | JWT (jsonwebtoken) | — | Tokens firmados para autenticación stateless |
-| **Cifrado** | bcrypt (concepto) | — | Contraseñas nunca viajan en texto plano |
-
-### Arquitectura del proyecto
-
-```
-gestion-educativa/
-├── src/
-│   └── app/
-│       ├── core/                ← Capa de dominio
-│       │   ├── models/          ← Interfaces TypeScript (User, Curso)
-│       │   ├── services/        ← HTTP Services (AuthService, UserService, CursoService)
-│       │   ├── guards/          ← Protección de rutas (AuthGuard, RoleGuard, LoginGuard)
-│       │   └── interceptors/    ← Middleware HTTP (JwtInterceptor)
-│       ├── features/            ← Módulos funcionales (lazy loading)
-│       │   ├── auth/            ← Login + Registro
-│       │   ├── cursos/          ← CRUD cursos
-│       │   ├── usuarios/        ← CRUD usuarios
-│       │   └── dashboard/       ← Panel principal
-│       ├── layout/              ← Navbar dinámico
-│       ├── shared/              ← Pipes y Directivas reutilizables
-│       └── pages/               ← 404, Acceso denegado
-├── server.cjs                   ← API Node.js con JWT real
-├── db.json                      ← Base de datos en archivo JSON
-└── environments/                ← URLs por entorno (dev/prod)
-```
-
----
-
 ## ▶️ PASO 1 — Abrir el proyecto
 
 1. Abrir **VS Code**
@@ -163,18 +121,7 @@ Se redirige automáticamente a `/login` ✅
 
 ---
 
-### Demo 8 — Registro de usuario
-1. En la pantalla de login, clic en **"Regístrate aquí"** (parte inferior)
-2. Redirige a `/registro`
-3. Completar: nombre, correo, contraseña, rol
-4. Clic en **Registrarse**
-5. **Resultado:** mensaje verde de éxito → redirige automáticamente al login
-6. Mostrar en **DevTools → Network** la petición `POST /auth/register` con status 201
-7. Iniciar sesión con el nuevo usuario creado
-
----
-
-### Demo 9 — Página 404
+### Demo 8 — Página 404
 1. Ir a `http://localhost:4200/cualquier-cosa-que-no-existe`
 2. **Resultado:** página 404 personalizada
 
@@ -231,22 +178,6 @@ Invoke-RestMethod -Uri "http://localhost:3000/cursos/4" `
   -Headers @{ Authorization = "Bearer $token" }
 ```
 
-#### Registrar nuevo usuario (POST) — público
-```powershell
-Invoke-RestMethod -Uri "http://localhost:3000/auth/register" `
-  -Method Post `
-  -ContentType "application/json" `
-  -Body '{"nombre":"Ana Torres","email":"ana@edu.com","password":"ana123","rol":"estudiante"}'
-```
-
-#### Registrar con correo duplicado — debe dar 409
-```powershell
-Invoke-RestMethod -Uri "http://localhost:3000/auth/register" `
-  -Method Post `
-  -ContentType "application/json" `
-  -Body '{"nombre":"Otro","email":"admin@edu.com","password":"x","rol":"admin"}'
-```
-
 #### Obtener todos los usuarios (GET)
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:3000/users"
@@ -278,15 +209,6 @@ Invoke-RestMethod -Uri "http://localhost:3000/cursos" `
 
 ### Sobre el Formulario Dinámico
 > *"Cuando el usuario selecciona estado 'Inactivo', usamos `valueChanges` para escuchar el cambio en tiempo real. Llamamos `setValidators(Validators.required)` para activar la validación y `clearValidators()` para desactivarla. Así el formulario se adapta dinámicamente sin recargar la página."*
-
-### Sobre el Registro de Usuarios
-> *"El endpoint `POST /auth/register` recibe nombre, correo, contraseña y rol. Antes de crear el usuario valida que el correo no esté registrado — si ya existe retorna un 409 Conflict. En el frontend el componente `RegisterComponent` usa un formulario reactivo con validaciones: correo válido, contraseña mínimo 6 caracteres. Al registrarse exitosamente redirige automáticamente al login usando `setTimeout` con el `Router` de Angular."*
-
-### Sobre los Environments
-> *"Tenemos dos archivos de entorno: `environment.ts` para desarrollo apuntando al servidor mock en `localhost:3000`, y `environment.prod.ts` para producción apuntando al microservicio Spring Boot en `localhost:8070/api/v1`. Angular reemplaza automáticamente el archivo según el comando de build: `ng serve` usa development, `ng build` usa production. Los servicios nunca tienen la URL hardcodeada, siempre leen `environment.apiUrl`."*
-
-### Sobre `ApiResponse<T>`
-> *"Cuando conectemos con el backend real Spring Boot, todos los endpoints devuelven una envoltura genérica: `{ success, message, data, timestamp }`. Tenemos el modelo `ApiResponse<T>` ya definido en TypeScript con genérico, de modo que `ApiResponse<User[]>` representa una lista de usuarios y `ApiResponse<Curso>` representa un solo curso. Esto nos permite tipar correctamente las respuestas del microservicio."*
 
 ---
 

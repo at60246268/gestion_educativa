@@ -15,14 +15,6 @@ export const routes: Routes = [
     canActivate: [loginGuard]
   },
 
-  // Ruta pública — registro de nuevo usuario
-  {
-    path: 'registro',
-    loadComponent: () =>
-      import('./features/auth/register/register.component').then(m => m.RegisterComponent),
-    canActivate: [loginGuard]
-  },
-
   // Ruta privada — solo usuarios autenticados
   {
     path: 'dashboard',
